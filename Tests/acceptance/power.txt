@@ -1,0 +1,36 @@
+#funkcja zwraca resztę z dzielenia liczby
+fn modulo(int number, int divisor) -> int
+    return number - divisor * (number / divisor);
+
+#rekurencyjna potęga
+fn power(float base, int exponent) -> float {
+    if(exponent == 0) return 1.0;
+    float tmpRes = power(base, exponent / 2);
+
+    if(modulo(exponent, 2) == 0) 
+        return tmpRes * tmpRes;
+    else {
+        if(exponent > 0) return base * tmpRes * tmpRes;
+        else return tmpRes * tmpRes / base;
+    }
+}
+
+fn main() {
+    int i = 0;
+    float base = 0.99;
+    int exponent = 100;
+
+    #złożony warunek, który ma przetestować poparwność implementacji
+    while((i < 10000) && 1) {
+        power(base, exponent);
+        i = i + 1;
+    }
+    
+    #Przykład konkatenacji string'a
+    print("i = " + int_to_string(i));
+    print(  float_to_string(base) + 
+            "^" + 
+            int_to_string(exponent) + 
+            " = " + 
+            float_to_string(power(base, exponent)));
+}

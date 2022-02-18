@@ -1,0 +1,12 @@
+fn fibonacci(int n) -> int {
+    if (n <= 1) {
+        return n;
+    }
+    return fibonacci(n-1) + fibonacci(n-2);
+}
+ 
+fn main() -> int {
+    int n = 9;
+    print(int_to_string(fibonacci(n)));
+    return 0;
+}

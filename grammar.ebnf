@@ -1,0 +1,91 @@
+(* Grammar version 1.4 *)
+program = {functionDef | defineStatement};
+functionDef = "fn", identifier, "(", [parameters], ")", ["->", type], statement;
+functionCall = identifier, "(", [arguments] ,")";
+statement = defineStatement | assignStatement | ifStatement | whileStatement | (functionCall, ";") | returnStatement | "{", { statement }, "}";
+
+
+ifStatement = "if", "(", condition, ")", statement, ["else", statement];
+whileStatement = "while", "(", condition, ")", statement;
+
+condition = subCondition, [(relationalOp | logicOp), subCondition];
+subCondition = [logicNegationOp], (parenthesesCondition | expression);
+parenthesesCondition = "(", condition, ")";
+
+expression = subExpression, {addOp, subExpression};
+subExpression = [arithmeticNegationOp], factor, {multOp, factor};
+factor = parenthesesExpression | functionCall | identifier | number | stringLiteral;
+parenthesesExpression = "(", expression, ")";
+
+parameters = type, identifier, {",", type, identifier};
+arguments = expression, {",", expression};
+
+defineStatement = type, identifier, [assignOp, expression],";";
+assignStatement = identifier, assignOp, expression, ";";
+returnStatement = "return", expression, ";";
+
+logicNegationOp = "!";
+arithmeticNegationOp = "-";
+assignOp = "=";
+relationalOp = "<" | "<=" | ">" | ">=" | "==" | "!=";
+logicOp = "&&" | "||";
+addOp = "+" | "-";
+multOp = "*" | "/";
+type = "int" | "float" | "frc" | "string";
+
+identifier = letter, {digit | letter};
+number = digit, {digit}, [".", {digit}];
+stringLiteral = '"', {visibleChar}, '"';
+
+digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+letter = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s"
+| "t" | "u" | "v" | "w" | "x" | "y" | "z" | "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M"
+| "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "_";
+(* Add # before "\S" if you want test it in EBNF tester *)
+visibleChar = "\S";
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+(* Grammar version 1.3.1 *)
+program = {functionDef | defineStatement};
+functionDef = "fn", identifier, "(", [parameters], ")", ["->", type], statementBlock;
+functionCall = identifier, "(", [arguments] ,")";
+statementBlock = "{", {defineStatement | assignStatement | ifStatement | whileStatement | (functionCall, ";")}, [returnStatement], "}";
+
+ifStatement = "if", "(", condition, ")", statementBlock, ["else", statementBlock];
+whileStatement = "while", "(", condition, ")", statementBlock;
+
+condition = subCondition, [(relationalOp | logicOp), subCondition];
+subCondition = [logicNegationOp], (parenthesesCondition | expression);
+parenthesesCondition = "(", condition, ")";
+
+expression = subExpression, {addOp, subExpression};
+subExpression = [arithmeticNegationOp], factor, {multOp, factor};
+factor = parenthesesExpression | functionCall | identifier | number | stringLiteral;
+parenthesesExpression = [type], "(", expression, ")";
+
+parameters = type, identifier, {",", type, identifier};
+arguments = expression, {",", expression};
+
+defineStatement = type, identifier, [assignOp, expression],";";
+assignStatement = identifier, assignOp, expression, ";";
+returnStatement = "return", expression, ";";
+
+logicNegationOp = "!";
+arithmeticNegationOp = "-";
+assignOp = "=";
+relationalOp = "<" | "<=" | ">" | ">=" | "==" | "!=";
+logicOp = "&&" | "||";
+addOp = "+" | "-";
+multOp = "*" | "/";
+type = "int" | "float" | "frc" | "string";
+
+identifier = letter, {digit | letter};
+number = digit, {digit}, [".", {digit}];
+stringLiteral = '"', {visibleChar}, '"';
+
+digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+letter = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s"
+| "t" | "u" | "v" | "w" | "x" | "y" | "z" | "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M"
+| "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "_";
+(* Add # if you want test it in EBNF tester *)
+visibleChar = "\S";

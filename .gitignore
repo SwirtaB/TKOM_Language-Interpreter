@@ -1,0 +1,8 @@
+#IDE specific folders
+.vscode
+
+#Python specific files
+__pycache__
+
+#Libs specific files
+.coverage

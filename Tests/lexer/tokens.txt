@@ -1,0 +1,20 @@
+# Keywords
+int float frc string fn if else while return
+
+# Single char symbols
+. , ! = < > + - * / ; ( ) { }
+
+# Double char symbols
+<= >= == != -> && ||
+
+# Int literals
+0 1 10 100 1000 54321 -10
+
+# Float literals
+0.0 0.1 0.01 0.001 0.54321 -15.24
+
+# String literals
+"abcd" "path/to/file" "\"test\""
+
+# Identifiers
+main new_fun newVar _some_1_text_ #also comment test

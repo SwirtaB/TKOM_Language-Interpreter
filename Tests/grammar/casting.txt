@@ -1,0 +1,18 @@
+int globalVar = 1;
+
+fn main() -> int {
+    while(globalVar < 100){
+        globalVar = globalVar + 1;
+    }
+
+    float localFloat = 1.0;
+    frc localFrc = frc(1,2);
+    
+    localFrc = localFrc + int_to_frc(2*globalVar);
+    localFloat = localFloat + 2.0*frc_to_float(localFrc);
+    
+    print(frc_to_string(localFrc));
+    print(float_to_string(localFloat));
+    print(frc_to_string( frc(1,2) / frc(1,3)));
+    return 0;
+}
